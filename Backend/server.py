@@ -8,16 +8,23 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-
 load_dotenv()
 
 hf_api_token = os.getenv("HF_API_TOKEN")
 if not hf_api_token:
     raise ValueError("Hugging Face API token is missing. Please set HF_API_TOKEN in your .env file.")
 
-# Initializing client 
+# Initializing Hugging Face Inference API client
 hf_client = InferenceClient(token=hf_api_token)
 
+# Mapping
+label_mapping = {
+    "LABEL_0": "negative",
+    "LABEL_1": "neutral",
+    "LABEL_2": "positive"
+}
+
+#Root path
 @app.route('/', methods=['POST'])
 def analyze_sentiment():
     try:
@@ -29,10 +36,11 @@ def analyze_sentiment():
         
         result = hf_client.text_classification(
             text,
-            model="distilbert/distilbert-base-uncased-finetuned-sst-2-english"
+            model="cardiffnlp/twitter-roberta-base-sentiment"
         )
         
-        sentiment = result[0]['label'].lower()
+        raw_label = result[0]['label']
+        sentiment = label_mapping.get(raw_label, raw_label)
         confidence = result[0]['score']
 
         return jsonify({
@@ -41,80 +49,6 @@ def analyze_sentiment():
         })
     except Exception as e:
         print(f"Analysis failed: {e}")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         return jsonify({"error": "Analysis failed"}), 500
 
 if __name__ == '__main__':

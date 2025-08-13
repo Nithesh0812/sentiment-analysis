@@ -5,7 +5,7 @@ function SentimentAnalysis()
 const[text,setText]=useState("")
 const[result,setResult]=useState(null)
 const Analyse=async()=>{
-const response= await axios.post(' https://sentiment-analysis-8b18.onrender.com',{text});
+const response= await axios.post('https://sentiment-analysis-8b18.onrender.com',{text});
 setResult(response.data);}
     return(
         <div className="p-4 max-w-md mx-auto">
@@ -19,11 +19,10 @@ setResult(response.data);}
   style={{
     backgroundColor:
       result.sentiment === 'positive'
-        ? '#d1fae5' // Corresponds to bg-green-200
+        ? '#d1fae5' 
         : result.sentiment === 'negative'
-        ? '#fee2e2' // Corresponds to bg-red-200
-        : '#f3f4f6', // Corresponds to bg-gray-200
-    // Add other styles here
+        ? '#fee2e2'
+        : '#f3f4f6',
   }}
 >
   Sentiment: {result.sentiment} (Confidence: {(result.confidence * 100).toFixed(2)}%)
