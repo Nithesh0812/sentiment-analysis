@@ -18,7 +18,7 @@ if not hf_api_token:
 # Initializing client 
 hf_client = InferenceClient(token=hf_api_token)
 
-@app.route('/analyze', methods=['POST'])
+@app.route('/', methods=['POST'])
 def analyze_sentiment():
     try:
         data = request.get_json()
@@ -41,79 +41,6 @@ def analyze_sentiment():
         })
     except Exception as e:
         print(f"Analysis failed: {e}")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         return jsonify({"error": "Analysis failed"}), 500
 
