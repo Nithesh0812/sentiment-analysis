@@ -5,7 +5,7 @@ function SentimentAnalysis()
 const[text,setText]=useState("")
 const[result,setResult]=useState(null)
 const Analyse=async()=>{
-const response= await axios.post('http://localhost:8000/analyze',{text});
+const response= await axios.post(' https://sentiment-analysis-8b18.onrender.com',{text});
 setResult(response.data);}
     return(
         <div className="p-4 max-w-md mx-auto">
