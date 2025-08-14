@@ -4,6 +4,7 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 from huggingface_hub import InferenceClient
 import os
+import re
 
 app = Flask(__name__)
 CORS(app)
@@ -31,7 +32,7 @@ def analyze_sentiment():
         data = request.get_json()
         text = data.get('text')
 
-        if not text:
+        if not text or text.isdigit() or not re.search(r"[a-zA-Z0-9]",text):
             return jsonify({"error": "Text is required"}), 400
         
         result = hf_client.text_classification(
