@@ -1,4 +1,5 @@
 Sentiment Analysis Web Application
+
 A web app for sentiment analysis, allowing users to input text and view sentiment results (Positive, Negative, Neutral) with color-coded outputs: Green for Positive, Red for Negative, Grey for Neutral.
 
 Frontend
