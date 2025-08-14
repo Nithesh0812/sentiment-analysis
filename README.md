@@ -6,7 +6,7 @@ Frontend
 
 Framework: React
 
-File: src/App.js with text input, “Analyze” button, and color-coded results
+File: src/Homepage.js with text input, “Analyze” button, and color-coded results
 
 Dependencies (package.json):
 
